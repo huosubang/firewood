@@ -4,18 +4,17 @@ import (
 	"net/http"
 	"time"
 
-	"github.com/Sirupsen/logrus"
 	"github.com/urfave/negroni"
 )
 
-type Logger struct{}
+type LoggerHandler struct{}
 
-// NewLogger returns a new Logger instance
-func NewLogger() *Logger {
-	return &Logger{}
+// NewLoggerHandler returns a new LoggerHandler instance
+func NewLoggerHandler() *LoggerHandler {
+	return &LoggerHandler{}
 }
 
-func (*Logger) ServeHTTP(rw http.ResponseWriter, r *http.Request, next http.HandlerFunc) {
+func (*LoggerHandler) ServeHTTP(rw http.ResponseWriter, r *http.Request, next http.HandlerFunc) {
 	start := time.Now()
 
 	if origin := r.Header.Get("Origin"); origin != "" {
@@ -29,5 +28,5 @@ func (*Logger) ServeHTTP(rw http.ResponseWriter, r *http.Request, next http.Hand
 	}
 
 	res := rw.(negroni.ResponseWriter)
-	logrus.Infof("[%s] %s %s %d %v", start.String(), r.Method, r.URL.Path, res.Status(), time.Since(start))
+	Log.Infof("[%s] %s %s %d %v", start.String(), r.Method, r.URL.String(), res.Status(), time.Since(start))
 }

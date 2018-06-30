@@ -5,18 +5,17 @@ import (
 	"fmt"
 	"net/http"
 
-	"github.com/Sirupsen/logrus"
 	"github.com/mholt/binding"
+	"github.com/sirupsen/logrus"
 )
-
 
 // ListOptions specifies the optional parameters to various List methods that
 // support pagination.
 type ListOptions struct {
 	// For paginated result sets, page of results to retrieve.
-	Offset int `url:"offset,omitempty"`
+	Offset int64 `url:"offset,omitempty"`
 	// For paginated result sets, the number of results to include per page.
-	Limit int `url:"limit,omitempty"`
+	Limit int64 `url:"limit,omitempty"`
 }
 
 type T interface {
@@ -43,11 +42,11 @@ func New(res http.ResponseWriter, req *http.Request, r T, methods ...string) {
 		Write(res, req, http.StatusBadRequest, nil)
 		return
 	}
+	logrus.Debugf("[%s] r:%+v", req.RequestURI, r)
 
 	d, code, err := r.Do(res, req)
-	if err != nil {
-		logrus.Warnf("[%s] err:%s", req.RequestURI, err.Error())
-	}
+	logrus.Debugf("[%s] resp:%v, code:%d, err:%v", req.RequestURI, d, code, err)
+
 	Write(res, req, code, d)
 
 	return
