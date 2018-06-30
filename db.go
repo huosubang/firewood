@@ -5,12 +5,14 @@ import (
 	"fmt"
 
 	_ "github.com/lib/pq"
+
+	_ "github.com/go-sql-driver/mysql"
 )
 
-var Pg *sql.DB
+var Db *sql.DB
 
 func InitPg(addr, user, password, database string) error {
-	if Pg != nil {
+	if Db != nil {
 		return nil
 	}
 	connStr := fmt.Sprintf("postgres://%s:%s@%s/%s?sslmode=disable", user, password, addr, database)
@@ -19,7 +21,22 @@ func InitPg(addr, user, password, database string) error {
 		return err
 	}
 
-	Pg = db
+	Db = db
+
+	return nil
+}
+
+func InitMysql(addr, user, password, database string) error {
+	if Db != nil {
+		return nil
+	}
+	connStr := fmt.Sprintf("%s:%s@%s/%s", user, password, addr, database)
+	db, err := sql.Open("mysql", connStr)
+	if err != nil {
+		return err
+	}
+
+	Db = db
 
 	return nil
 }

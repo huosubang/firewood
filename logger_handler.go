@@ -8,8 +8,7 @@ import (
 	"github.com/urfave/negroni"
 )
 
-type Logger struct {
-}
+type Logger struct{}
 
 // NewLogger returns a new Logger instance
 func NewLogger() *Logger {
