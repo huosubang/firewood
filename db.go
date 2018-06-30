@@ -30,7 +30,7 @@ func InitMysql(addr, user, password, database string) error {
 	if Db != nil {
 		return nil
 	}
-	connStr := fmt.Sprintf("%s:%s@%s/%s", user, password, addr, database)
+	connStr := fmt.Sprintf("%s:%s@tcp(%s)/%s", user, password, addr, database)
 	db, err := sql.Open("mysql", connStr)
 	if err != nil {
 		return err
