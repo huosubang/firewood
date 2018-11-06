@@ -1,4 +1,4 @@
-module github.com/xuyz/firewood
+module github.com/huosubang/firewood
 
 require (
 	github.com/go-sql-driver/mysql v1.4.0
@@ -10,6 +10,5 @@ require (
 	github.com/smartystreets/assertions v0.0.0-20180927180507-b2de0cb4f26d // indirect
 	github.com/smartystreets/goconvey v0.0.0-20180222194500-ef6db91d284a // indirect
 	github.com/urfave/negroni v1.0.0
-	google.golang.org/appengine v1.3.0 // indirect
 	gopkg.in/yaml.v2 v2.2.1
 )
