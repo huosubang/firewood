@@ -20,7 +20,7 @@ func (*LoggerHandler) ServeHTTP(rw http.ResponseWriter, r *http.Request, next ht
 	if origin := r.Header.Get("Origin"); origin != "" {
 		rw.Header().Set("Access-Control-Allow-Origin", "*")
 		rw.Header().Set("Access-Control-Allow-Methods", "POST, GET, HEAD, OPTIONS, PUT, PATCH, DELETE")
-		rw.Header().Set("Access-Control-Allow-Headers", "Content-Type") //有使用自定义头 需要这个,Action, Module是例子
+		rw.Header().Set("Access-Control-Allow-Headers", "Content-Type, HK-Token") //有使用自定义头 需要这个,Action, Module是例子
 	}
 
 	if r.Method != "OPTIONS" {
